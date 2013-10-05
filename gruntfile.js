@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-gh-pages');
 
   /**
    * Load in our build configuration file.
@@ -416,6 +417,13 @@ module.exports = function ( grunt ) {
       }
     },
 
+    'gh-pages': {
+      options: {
+        base: 'build'
+      },
+      src: ['**']
+    },
+
     /**
      * And for rapid development, we have a watch set up that checks to see if
      * any of the files listed below change, and then to execute the listed 
@@ -535,13 +543,6 @@ module.exports = function ( grunt ) {
         options: {
           livereload: false
         }
-      },
-
-      'gh-pages': {
-        options: {
-          base: 'build'
-        },
-        src: ['**']
       }
 
     }
@@ -572,6 +573,10 @@ module.exports = function ( grunt ) {
     /*'concat:build_css',*/ 'copy:build_app_assets', 'copy:build_vendor_assets',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
     'karma:continuous' 
+  ]);
+
+  grunt.registerTask( 'publish-build', [
+    'build', 'gh-pages'
   ]);
 
   /**
