@@ -1,6 +1,5 @@
 module.exports = function(config){
-    config.set({
-
+  config.set({
 
     basePath : '../',
 
@@ -33,4 +32,5 @@ module.exports = function(config){
       suite: 'e2e'
     }
 
-})}
+  })
+}

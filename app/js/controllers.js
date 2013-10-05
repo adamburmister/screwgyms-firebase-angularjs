@@ -4,7 +4,7 @@
 
 angular.module('myApp.controllers', [])
    .controller('MyCtrl1', ['$scope', 'FBURL', 'angularFire', function($scope, FBURL, angularFire) {
-      angularFire(new Firebase($scope.firebase.URL+'/syncedValue'), $scope, 'syncedValue', '');
+      angularFire(new Firebase($scope.firebase.URL+'/syncedValue'), $scope, 'syncedValue');
    }])
 
   .controller('MyCtrl2', ['$scope', 'FBURL', 'Firebase', 'angularFireCollection', function($scope, FBURL, Firebase, angularFireCollection) {

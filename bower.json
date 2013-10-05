@@ -15,7 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-fire": "~0.3.1",
-    "angular-mocks": "~1.0.8"
+    "angular-mocks": "~1.0.8",
+    "angular-scenario": "~1.0.8",
+    "angular": "~1.0.8"
   }
 }
