@@ -11,6 +11,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-coffeelint');
@@ -59,6 +60,27 @@ module.exports = function ( grunt ) {
       options: {
         dest: 'CHANGELOG.md',
         template: 'changelog.tpl'
+      }
+    },
+
+    /**
+     * SCSS
+     */
+    compass: {
+      options: {
+        sassDir: 'src/styles',
+        cssDir: '<%= build_dir %>/styles',
+        imagesDir: 'src/assets/img',
+        javascriptsDir: 'src/app',
+        fontsDir: 'src/assets/fonts',
+        //importPath: 'src/vendor',
+        relativeAssets: true
+      },
+      dist: {},
+      server: {
+        options: {
+          debugInfo: true
+        }
       }
     },
 
@@ -173,7 +195,7 @@ module.exports = function ( grunt ) {
        */
       compile_js: {
         options: {
-          banner: '<%= meta.banner %>'
+          //banner: '<%= meta.banner %>'
         },
         src: [ 
           '<%= vendor_files.js %>', 
@@ -419,7 +441,7 @@ module.exports = function ( grunt ) {
 
     'gh-pages': {
       options: {
-        base: 'build'
+        base: 'dist'
       },
       src: ['**']
     },
@@ -517,6 +539,11 @@ module.exports = function ( grunt ) {
 //        tasks: [ 'recess:build' ]
 //      },
 
+      compass: {
+        files: ['src/*//***/*//*.{scss,sass}'],
+        tasks: ['compass']
+      },
+
       /**
        * When a JavaScript unit test file changes, we only want to lint it and
        * run the unit tests. We don't want to do any live reloading.
@@ -569,14 +596,21 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', /*'recess:build',*/
-    /*'concat:build_css',*/ 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
+    'clean',
+    'html2js',
+    'jshint',
+    'coffeelint',
+    'coffee',
+    'compass:dist',
+    /*'recess:build',*/
+    /*'concat:build_css',*/
+    'copy:build_app_assets',
+    'copy:build_vendor_assets',
+    'copy:build_appjs',
+    'copy:build_vendorjs',
+    'index:build',
+    'karmaconfig',
     'karma:continuous' 
-  ]);
-
-  grunt.registerTask( 'publish-build', [
-    'build', 'gh-pages'
   ]);
 
   /**
@@ -584,7 +618,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    /*'recess:compile', */'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+    'compass:dist', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile', 'gh-pages'
   ]);
 
   /**
