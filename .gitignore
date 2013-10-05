@@ -1,5 +1,9 @@
-app/bower_components/
-node_modules/
-coverage/
 .idea/
 __*
+old
+*.sw*
+*~
+build/
+bin/
+node_modules/
+vendor/

@@ -15,8 +15,12 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.0.8",
     "angular-mocks": "~1.0.8",
     "angular-scenario": "~1.0.8",
-    "angular": "~1.0.8"
+    "bootstrap": "~3.0.0",
+    "angular-bootstrap": "~0.3.0",
+    "angular-ui-router": "~0.0.1",
+    "angular-ui-utils": "~0.0.3"
   }
 }
